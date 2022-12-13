@@ -1,11 +1,19 @@
 import { css } from "@emotion/react";
+import { Link } from "react-router-dom";
 
-const TitleButton = () => {
+type Props = {
+  href: string;
+  title: string;
+  date: string;
+  post: object;
+}
+
+const TitleButton: React.FC<Props> = ({ href, title, date }) => {
   return (
-    <div css={styles.base}>
-      <p css={styles.title}>記事タイトル</p>
-      <p css={styles.date}>2022/11/11</p>
-    </div>
+    <Link to={href} css={styles.base}>
+      <p css={styles.title}>{title}</p>
+      <p css={styles.date}>{date}</p>
+    </Link>
   );
 };
 
@@ -16,6 +24,8 @@ const styles = {
     background-color: yellow;
     border-radius: 10px;
     padding: 35px;
+    text-decoration: none;
+    color: black;
   `,
   title: css`
     margin: 0;
