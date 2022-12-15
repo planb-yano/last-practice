@@ -25,7 +25,11 @@ const Home = () => {
       <ul css={styles.list}>
         {posts.map((post: any) => (
           <li key={post.id} css={styles.title}>
-            <TitleButton  href={`/post/:${post.id}`} title={post.title} date={post.createdAt.split('T')[0]} post={post}/>
+            <TitleButton
+              href={`/post/${post.id}`}
+              title={post.title}
+              date={post.createdAt.split("T")[0]}
+            />
           </li>
         ))}
       </ul>

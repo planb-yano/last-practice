@@ -5,8 +5,7 @@ type Props = {
   href: string;
   title: string;
   date: string;
-  post: object;
-}
+};
 
 const TitleButton: React.FC<Props> = ({ href, title, date }) => {
   return (

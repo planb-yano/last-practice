@@ -4,6 +4,8 @@ type Props = {
   placeholder: string;
   registers: any;
   errorMessage: any;
+  value: string;
+  onChange: any;
 };
 
 const DetailTextField: React.FC<Props> = (props) => {
@@ -13,6 +15,8 @@ const DetailTextField: React.FC<Props> = (props) => {
         css={styles.base}
         placeholder={props.placeholder}
         {...props.registers}
+        value={props.value}
+        onChange={props.onChange}
       ></textarea>
       <p css={styles.message}>{props.errorMessage}</p>
     </div>
@@ -24,6 +28,7 @@ const styles = {
     width: 80%;
     height: 50vh;
     padding: 14px 10px;
+    border-width: 2px;
   `,
   message: css`
     color: red;

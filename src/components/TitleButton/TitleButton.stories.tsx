@@ -10,8 +10,8 @@ export default {
       <MemoryRouter>
         <Story />
       </MemoryRouter>
-    )
-  ]
+    ),
+  ],
 } as ComponentMeta<typeof TitleButton>;
 
 const Template: ComponentStory<typeof TitleButton> = (props) => (

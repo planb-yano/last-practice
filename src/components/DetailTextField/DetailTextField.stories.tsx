@@ -35,6 +35,8 @@ const Template: ComponentStory<typeof DetailTextField> = () => {
         registers={register("detail")}
         placeholder={"記事本文を入力"}
         errorMessage={errors.detail?.message}
+        value={""}
+        onChange={undefined}
       ></DetailTextField>
     </form>
   );

@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 type Props = {
   children: string;
   href: string;
+  onClick?: void;
 };
 
 const CircleButton: React.FC<Props> = ({ children, href }) => {

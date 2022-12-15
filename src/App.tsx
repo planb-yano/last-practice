@@ -9,10 +9,10 @@ function App() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path={'/'} element={<Home />} />
-        <Route path={'/post/:postId'} element={<PostDetail />} />
-        <Route path={'/post/create'} element={<CreatePost />} />
-        <Route path={'/post/:postId/edit'} element={<EditPost />} />
+        <Route path={"/"} element={<Home />} />
+        <Route path={"/post/:postId"} element={<PostDetail />} />
+        <Route path={"/post/create"} element={<CreatePost />} />
+        <Route path={"/post/:postId/edit"} element={<EditPost />} />
       </Routes>
     </BrowserRouter>
   );

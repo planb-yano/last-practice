@@ -6,7 +6,9 @@ export default {
   component: Detail,
 } as ComponentMeta<typeof Detail>;
 
-const Template: ComponentStory<typeof Detail> = (props) => <Detail {...props}></Detail>;
+const Template: ComponentStory<typeof Detail> = (props) => (
+  <Detail {...props}></Detail>
+);
 
 export const Default = Template.bind({});
 Default.args = {

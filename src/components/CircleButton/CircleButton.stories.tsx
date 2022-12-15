@@ -10,8 +10,8 @@ export default {
       <MemoryRouter>
         <Story />
       </MemoryRouter>
-    )
-  ]
+    ),
+  ],
 } as ComponentMeta<typeof CircleButton>;
 
 const Template: ComponentStory<typeof CircleButton> = (props) => (
