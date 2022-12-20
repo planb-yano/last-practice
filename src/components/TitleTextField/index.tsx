@@ -2,10 +2,8 @@ import { css } from "@emotion/react";
 
 type Props = {
   placeholder: string;
-  registers: any;
-  errorMessage: any;
-  value: string;
-  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  register: any;
+  errorMessage?: string;
 };
 
 const TitleTextField: React.FC<Props> = (props) => {
@@ -15,9 +13,7 @@ const TitleTextField: React.FC<Props> = (props) => {
         css={styles.base}
         type="text"
         placeholder={props.placeholder}
-        {...props.registers}
-        value={props.value}
-        onChange={props.onChange}
+        {...props.register}
       ></input>
       <p css={styles.message}>{props.errorMessage}</p>
     </div>

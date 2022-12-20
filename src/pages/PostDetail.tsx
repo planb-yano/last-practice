@@ -45,14 +45,12 @@ const PostDetail = () => {
   };
   return (
     <div css={styles.base}>
-      {post ? (
+      {post && (
         <Detail
           title={post.title}
-          date={post.createdAt}
+          date={post.createdAt.split("T")[0]}
           description={post.content}
         ></Detail>
-      ) : (
-        <div></div>
       )}
       <CircleButton children="Delete" onClick={onOpen}></CircleButton>
       <CircleButton

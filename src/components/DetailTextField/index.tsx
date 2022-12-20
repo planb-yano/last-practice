@@ -3,10 +3,8 @@ import React from "react";
 
 type Props = {
   placeholder: string;
-  registers: any;
+  register: any;
   errorMessage: any;
-  value: string;
-  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
 };
 
 const DetailTextField: React.FC<Props> = (props) => {
@@ -15,9 +13,7 @@ const DetailTextField: React.FC<Props> = (props) => {
       <textarea
         css={styles.base}
         placeholder={props.placeholder}
-        {...props.registers}
-        value={props.value}
-        onChange={props.onChange}
+        {...props.register}
       ></textarea>
       <p css={styles.message}>{props.errorMessage}</p>
     </div>

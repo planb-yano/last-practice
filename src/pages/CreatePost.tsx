@@ -4,13 +4,17 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import DetailTextField from "../components/DetailTextField";
 import SquareButton from "../components/SquareButton";
-import React, { useState } from "react";
 import axios from "axios";
+
+type Input = {
+  title: string;
+  content: string;
+}
 
 const CreatePost = () => {
   const SignupSchema = yup.object().shape({
     title: yup.string().required().max(10, "120文字以内で入力してください"),
-    detail: yup
+    content: yup
       .string()
       .required()
       .max(100000, "100000文字以内で入力してください"),
@@ -18,27 +22,17 @@ const CreatePost = () => {
 
   const {
     register,
+    handleSubmit,
     formState: { errors },
-  } = useForm({
+  } = useForm<Input>({
     resolver: yupResolver(SignupSchema),
   });
 
-  const [title, setTitle] = useState<string>("");
-  const [content, setContent] = useState<string>("");
-
-  const onChangeTitle = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setTitle(e.target.value);
-  };
-
-  const onChangeContent = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setContent(e.target.value);
-  };
-
-  const onClickAdd = () => {
+  const onClickAdd = (values: any) => {
     axios
       .post("http://localhost:18080/v1/note", {
-        title: title,
-        content: content,
+        title: values.title,
+        content: values.content,
       })
       .then((response) => {
         console.log(response);
@@ -49,19 +43,15 @@ const CreatePost = () => {
     <div>
       <TitleTextField
         placeholder="記事タイトルを入力"
-        registers={register("title")}
+        register={register("title")}
         errorMessage={errors.title?.message}
-        value={title}
-        onChange={onChangeTitle}
       />
       <DetailTextField
         placeholder="記事本文を入力"
-        registers={register("detail")}
-        errorMessage={errors.detail?.message}
-        value={content}
-        onChange={onChangeContent}
+        register={register("content")}
+        errorMessage={errors.content?.message}
       />
-      <SquareButton children="Add" onClick={onClickAdd} />
+      <SquareButton children="Add" onClick={handleSubmit(onClickAdd)} />
     </div>
   );
 };
