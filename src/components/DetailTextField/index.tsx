@@ -1,11 +1,12 @@
 import { css } from "@emotion/react";
+import React from "react";
 
 type Props = {
   placeholder: string;
   registers: any;
   errorMessage: any;
   value: string;
-  onChange: any;
+  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
 };
 
 const DetailTextField: React.FC<Props> = (props) => {

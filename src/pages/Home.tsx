@@ -9,7 +9,7 @@ type Post = {
   title: string;
   content: string;
   createdAt: string;
-  updateAt: string;
+  updatedAt: string;
 };
 
 const Home = () => {
@@ -23,7 +23,7 @@ const Home = () => {
   return (
     <div css={styles.base}>
       <ul css={styles.list}>
-        {posts.map((post: any) => (
+        {posts.map((post: Post) => (
           <li key={post.id} css={styles.title}>
             <TitleButton
               href={`/post/${post.id}`}

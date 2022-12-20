@@ -2,16 +2,24 @@ import { css } from "@emotion/react";
 import { Link } from "react-router-dom";
 
 type Props = {
-  children: string;
-  href: string;
-  onClick?: void;
+  children: React.ReactNode;
+  href?: string;
+  onClick?: () => void;
 };
 
-const CircleButton: React.FC<Props> = ({ children, href }) => {
+const CircleButton: React.FC<Props> = ({ children, href, onClick }) => {
   return (
-    <Link to={href} css={styles.base}>
-      {children}
-    </Link>
+    <>
+      {href ? (
+        <Link to={href} css={styles.base} onClick={onClick}>
+          {children}
+        </Link>
+      ) : (
+        <button css={styles.base} onClick={onClick}>
+          {children}
+        </button>
+      )}
+    </>
   );
 };
 

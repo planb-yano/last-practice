@@ -5,7 +5,7 @@ type Props = {
   registers: any;
   errorMessage: any;
   value: string;
-  onChange: any;
+  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
 };
 
 const TitleTextField: React.FC<Props> = (props) => {

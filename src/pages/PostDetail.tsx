@@ -4,40 +4,70 @@ import CircleButton from "../components/CircleButton";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { useParams } from "react-router-dom";
+import {
+  useDisclosure,
+  Modal,
+  ModalOverlay,
+  ModalContent,
+  ModalHeader,
+  ModalFooter,
+  ModalCloseButton,
+} from "@chakra-ui/react";
+import SquareButton from "../components/SquareButton";
 
-// type Post = {
-//   id: string;
-//   title: string;
-//   content: string;
-//   createdAt: string;
-//   updateAt: string;
-// };
+type Post = {
+  id: string;
+  title: string;
+  content: string;
+  createdAt: string;
+  updatedAt: string;
+};
 
 type Params = {
   postId: string;
 };
 
 const PostDetail = () => {
-  const [posts, setPosts] = useState<any>([]);
+  const { isOpen, onOpen, onClose } = useDisclosure();
+  const [post, setPost] = useState<Post>();
   const { postId } = useParams<Params>();
   useEffect(() => {
     axios
       .get(`http://localhost:18080/v1/note/${postId}`)
-      .then((response) => setPosts(response.data))
+      .then((response) => setPost(response.data))
       .catch((error) => console.log(error));
   }, [postId]);
+  const onClickDelete = () => {
+    axios
+      .delete(`http://localhost:18080/v1/note/${postId}`)
+      .then((response) => console.log(response));
+  };
   return (
     <div css={styles.base}>
-      <Detail
-        title={posts.title}
-        date={posts.createdAt}
-        description={posts.content}
-      ></Detail>
-      <CircleButton children="Delete" href="/"></CircleButton>
+      {post ? <Detail
+        title={post.title}
+        date={post.createdAt}
+        description={post.content}
+      ></Detail> : <div></div>}
+      <CircleButton children="Delete" onClick={onOpen}></CircleButton>
       <CircleButton
         children="Edit"
         href={`/post/${postId}/edit`}
       ></CircleButton>
+
+      <Modal isOpen={isOpen} onClose={onClose}>
+        <ModalOverlay />
+        <ModalContent>
+          <ModalHeader>本当に削除しますか？</ModalHeader>
+          <ModalCloseButton />
+
+          <ModalFooter>
+            <SquareButton href="/" onClick={onClickDelete}>
+              削除
+            </SquareButton>
+          </ModalFooter>
+        </ModalContent>
+      </Modal>
     </div>
   );
 };

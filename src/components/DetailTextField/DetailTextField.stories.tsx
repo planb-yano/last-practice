@@ -3,6 +3,7 @@ import DetailTextField from "./index";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
+import React, { useState } from "react";
 
 export default {
   title: "src/components/DetailTextField",
@@ -17,26 +18,25 @@ const SignupSchema = yup.object().shape({
 });
 
 const Template: ComponentStory<typeof DetailTextField> = () => {
+  const [content, setContent] = useState<string>("");
+  const onChangeContent = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setContent(e.target.value);
+  };
   const {
     register,
-    handleSubmit,
     formState: { errors },
   } = useForm({
     resolver: yupResolver(SignupSchema),
   });
 
-  const onSubmit = (data: any) => {
-    console.log(data);
-  };
-
   return (
-    <form onSubmit={handleSubmit(onSubmit)} noValidate>
+    <form noValidate>
       <DetailTextField
         registers={register("detail")}
         placeholder={"記事本文を入力"}
         errorMessage={errors.detail?.message}
-        value={""}
-        onChange={undefined}
+        value={content}
+        onChange={onChangeContent}
       ></DetailTextField>
     </form>
   );

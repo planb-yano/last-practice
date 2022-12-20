@@ -4,7 +4,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import DetailTextField from "../components/DetailTextField";
 import SquareButton from "../components/SquareButton";
-import { useState } from "react";
+import React, { useState } from "react";
 import axios from "axios";
 
 const CreatePost = () => {
@@ -23,22 +23,22 @@ const CreatePost = () => {
     resolver: yupResolver(SignupSchema),
   });
 
-  const [Title, setTitle] = useState("");
-  const [Content, setContent] = useState("");
+  const [title, setTitle] = useState<string>("");
+  const [content, setContent] = useState<string>("");
 
-  const onChangeTitle = (e: { target: { value: any } }) => {
+  const onChangeTitle = (e: React.ChangeEvent<HTMLInputElement>) => {
     setTitle(e.target.value);
   };
 
-  const onChangeContent = (e: { target: { value: any } }) => {
+  const onChangeContent = (e: React.ChangeEvent<HTMLInputElement>) => {
     setContent(e.target.value);
   };
 
   const onClickAdd = () => {
     axios
       .post("http://localhost:18080/v1/note", {
-        title: Title,
-        content: Content,
+        title: title,
+        content: content,
       })
       .then((response) => {
         console.log(response);
@@ -50,19 +50,17 @@ const CreatePost = () => {
         placeholder="記事タイトルを入力"
         registers={register("title")}
         errorMessage={errors.title?.message}
-        value={Title}
+        value={title}
         onChange={onChangeTitle}
       />
       <DetailTextField
         placeholder="記事本文を入力"
         registers={register("detail")}
         errorMessage={errors.detail?.message}
-        value={Content}
+        value={content}
         onChange={onChangeContent}
       />
-      <div onClick={onClickAdd}>
-        <SquareButton children="Add" href="/" />
-      </div>
+      <SquareButton children="Add" href="/" onClick={onClickAdd} />
     </div>
   );
 };

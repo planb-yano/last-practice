@@ -2,13 +2,14 @@ import { css } from "@emotion/react";
 import { Link } from "react-router-dom";
 
 type Props = {
-  children: string;
+  children: React.ReactNode;
   href: string;
+  onClick: () => void;
 };
 
-const SquareButton: React.FC<Props> = ({ children, href }) => {
+const SquareButton: React.FC<Props> = ({ children, href, onClick }) => {
   return (
-    <Link to={href} css={styles.base}>
+    <Link to={href} onClick={onClick} css={styles.base}>
       {children}
     </Link>
   );
