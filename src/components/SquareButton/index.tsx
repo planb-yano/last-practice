@@ -1,17 +1,15 @@
 import { css } from "@emotion/react";
-import { Link } from "react-router-dom";
 
 type Props = {
   children: React.ReactNode;
-  href: string;
   onClick: () => void;
 };
 
-const SquareButton: React.FC<Props> = ({ children, href, onClick }) => {
+const SquareButton: React.FC<Props> = ({ children, onClick }) => {
   return (
-    <Link to={href} onClick={onClick} css={styles.base}>
+    <div onClick={onClick} css={styles.base}>
       {children}
-    </Link>
+    </div>
   );
 };
 
@@ -27,6 +25,7 @@ const styles = {
     font-size: 20px;
     text-decoration: none;
     color: #fff;
+    cursor: pointer;
   `,
 };
 

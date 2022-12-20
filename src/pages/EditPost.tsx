@@ -32,6 +32,7 @@ const EditPost = () => {
       content: content,
       id: postId,
     });
+    window.location.href = `/post/${postId}`;
   };
 
   const SignupSchema = yup.object().shape({
@@ -65,10 +66,7 @@ const EditPost = () => {
         value={content}
         onChange={onChangeContent}
       />
-      <SquareButton
-        children="Edit"
-        href={`/post/${postId}`}
-        onClick={onClickEdit} />
+      <SquareButton children="Edit" onClick={onClickEdit} />
     </div>
   );
 };

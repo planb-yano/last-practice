@@ -43,6 +43,7 @@ const CreatePost = () => {
       .then((response) => {
         console.log(response);
       });
+    window.location.href = "/";
   };
   return (
     <div>
@@ -60,7 +61,7 @@ const CreatePost = () => {
         value={content}
         onChange={onChangeContent}
       />
-      <SquareButton children="Add" href="/" onClick={onClickAdd} />
+      <SquareButton children="Add" onClick={onClickAdd} />
     </div>
   );
 };

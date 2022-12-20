@@ -41,14 +41,19 @@ const PostDetail = () => {
     axios
       .delete(`http://localhost:18080/v1/note/${postId}`)
       .then((response) => console.log(response));
+    window.location.href = "/";
   };
   return (
     <div css={styles.base}>
-      {post ? <Detail
-        title={post.title}
-        date={post.createdAt}
-        description={post.content}
-      ></Detail> : <div></div>}
+      {post ? (
+        <Detail
+          title={post.title}
+          date={post.createdAt}
+          description={post.content}
+        ></Detail>
+      ) : (
+        <div></div>
+      )}
       <CircleButton children="Delete" onClick={onOpen}></CircleButton>
       <CircleButton
         children="Edit"
@@ -62,9 +67,7 @@ const PostDetail = () => {
           <ModalCloseButton />
 
           <ModalFooter>
-            <SquareButton href="/" onClick={onClickDelete}>
-              削除
-            </SquareButton>
+            <SquareButton onClick={onClickDelete}>削除</SquareButton>
           </ModalFooter>
         </ModalContent>
       </Modal>
