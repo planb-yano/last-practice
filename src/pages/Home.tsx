@@ -1,6 +1,6 @@
 import { css } from "@emotion/react";
 import axios from "axios";
-import { useEffect, useState } from "react";
+import { useQuery } from "react-query";
 import CircleButton from "../components/CircleButton";
 import TitleButton from "../components/TitleButton";
 
@@ -12,18 +12,28 @@ type Post = {
   updatedAt: string;
 };
 
+type Data = {
+  items: [];
+  total: number;
+};
+
 const Home = () => {
-  const [posts, setPosts] = useState<Post[]>([]);
-  useEffect(() => {
-    axios
+  const getPosts = () => {
+    const posts = axios
       .get("http://localhost:18080/v1/note")
-      .then((response) => setPosts(response.data.items))
-      .catch((error) => console.log(error));
-  }, []);
+      .then((response) => response.data);
+    return posts;
+  };
+
+  const { data, isLoading } = useQuery<Data, Error>("posts", getPosts);
+
+  if (isLoading) {
+    return <span>Loading...</span>;
+  }
   return (
     <div css={styles.base}>
       <ul css={styles.list}>
-        {posts.map((post: Post) => (
+        {data?.items.map((post: Post) => (
           <li key={post.id} css={styles.title}>
             <TitleButton
               href={`/post/${post.id}`}

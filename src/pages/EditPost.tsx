@@ -6,25 +6,45 @@ import DetailTextField from "../components/DetailTextField";
 import SquareButton from "../components/SquareButton";
 import { useParams } from "react-router-dom";
 import axios from "axios";
+import { useMutation, useQueryClient } from "react-query";
 
 type Params = {
   postId: string;
 };
 
-type Input = {
+type Post = {
+  id: string;
   title: string;
   content: string;
+  createdAt: string;
+  updatedAt: string;
 };
 
 const EditPost = () => {
   const { postId } = useParams<Params>();
 
-  const onClickEdit = (values: Input) => {
-    axios.put(`http://localhost:18080/v1/note/${postId}`, {
-      title: values.title,
-      content: values.content,
-      id: postId,
-    });
+  const queryClient = useQueryClient();
+
+  const updatePostMutation = useMutation(
+    (post: Post) =>
+      axios.put<Post>(`http://localhost:18080/v1/note/${postId}`, post),
+    {
+      onSuccess: (res, variables) => {
+        const previousPosts = queryClient.getQueryData<Post[]>("posts");
+        if (previousPosts) {
+          queryClient.setQueryData<Post[]>(
+            "posts",
+            previousPosts.map((post) =>
+              post.id === variables.id ? res.data : post
+            )
+          );
+        }
+      },
+    }
+  );
+
+  const onClickEdit = (post: Post) => {
+    updatePostMutation.mutate(post);
     window.location.href = `/post/${postId}`;
   };
 
@@ -40,7 +60,7 @@ const EditPost = () => {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<Input>({
+  } = useForm<Post>({
     resolver: yupResolver(SignupSchema),
   });
 

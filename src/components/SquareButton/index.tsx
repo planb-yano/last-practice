@@ -2,7 +2,7 @@ import { css } from "@emotion/react";
 
 type Props = {
   children: React.ReactNode;
-  onClick: () => void;
+  onClick: any;
 };
 
 const SquareButton: React.FC<Props> = ({ children, onClick }) => {

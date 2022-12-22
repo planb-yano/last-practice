@@ -5,15 +5,19 @@ import * as yup from "yup";
 import DetailTextField from "../components/DetailTextField";
 import SquareButton from "../components/SquareButton";
 import axios from "axios";
+import { useMutation, useQueryClient } from "react-query";
 
-type Input = {
+type Post = {
+  id: string;
   title: string;
   content: string;
+  createdAt: string;
+  updatedAt: string;
 };
 
 const CreatePost = () => {
   const SignupSchema = yup.object().shape({
-    title: yup.string().required().max(10, "120文字以内で入力してください"),
+    title: yup.string().required().max(120, "120文字以内で入力してください"),
     content: yup
       .string()
       .required()
@@ -24,19 +28,29 @@ const CreatePost = () => {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<Input>({
+  } = useForm<Post>({
     resolver: yupResolver(SignupSchema),
   });
 
-  const onClickAdd = (values: Input) => {
-    axios
-      .post("http://localhost:18080/v1/note", {
-        title: values.title,
-        content: values.content,
-      })
-      .then((response) => {
-        console.log(response);
-      });
+  const queryClient = useQueryClient();
+
+  const createPostMutation = useMutation(
+    (post: Post) => axios.post<Post>("http://localhost:18080/v1/note", post),
+    {
+      onSuccess: (res) => {
+        const previousPosts = queryClient.getQueryData<Post[]>("posts");
+        if (previousPosts) {
+          queryClient.setQueryData<Post[]>("posts", [
+            ...previousPosts,
+            res.data,
+          ]);
+        }
+      },
+    }
+  );
+
+  const onClickAdd = (post: Post) => {
+    createPostMutation.mutate(post);
     window.location.href = "/";
   };
   return (

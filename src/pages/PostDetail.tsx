@@ -1,7 +1,6 @@
 import { css } from "@emotion/react";
 import Detail from "../components/Detail";
 import CircleButton from "../components/CircleButton";
-import { useEffect, useState } from "react";
 import axios from "axios";
 import { useParams } from "react-router-dom";
 import {
@@ -14,6 +13,11 @@ import {
   ModalCloseButton,
 } from "@chakra-ui/react";
 import SquareButton from "../components/SquareButton";
+import { useMutation, useQuery, useQueryClient } from "react-query";
+
+type Params = {
+  postId: string;
+};
 
 type Post = {
   id: string;
@@ -23,33 +27,46 @@ type Post = {
   updatedAt: string;
 };
 
-type Params = {
-  postId: string;
-};
-
 const PostDetail = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const [post, setPost] = useState<Post>();
   const { postId } = useParams<Params>();
-  useEffect(() => {
-    axios
+  const getPosts = () => {
+    const post = axios
       .get(`http://localhost:18080/v1/note/${postId}`)
-      .then((response) => setPost(response.data))
-      .catch((error) => console.log(error));
-  }, [postId]);
-  const onClickDelete = () => {
-    axios
-      .delete(`http://localhost:18080/v1/note/${postId}`)
-      .then((response) => console.log(response));
+      .then((response) => response.data);
+    return post;
+  };
+  const { data } = useQuery<Post, Error>("post", getPosts);
+
+  const queryClient = useQueryClient();
+
+  const deletePostMutation = useMutation(
+    (id: string) =>
+      axios.delete<Post>(`http://localhost:18080/v1/note/${postId}`),
+    {
+      onSuccess: (res, variables) => {
+        const previousPosts = queryClient.getQueryData<Post[]>("posts");
+        if (previousPosts) {
+          queryClient.setQueryData<Post[]>(
+            "posts",
+            previousPosts.filter((post) => post.id === variables)
+          );
+        }
+      },
+    }
+  );
+
+  const onClickDelete = (post: string) => {
+    deletePostMutation.mutate(post);
     window.location.href = "/";
   };
   return (
     <div css={styles.base}>
-      {post && (
+      {data && (
         <Detail
-          title={post.title}
-          date={post.createdAt.split("T")[0]}
-          description={post.content}
+          title={data.title}
+          date={data.createdAt.split("T")[0]}
+          description={data.content}
         ></Detail>
       )}
       <CircleButton children="Delete" onClick={onOpen}></CircleButton>
