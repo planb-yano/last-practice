@@ -9,6 +9,15 @@ export default {
   component: DetailTextField,
 } as ComponentMeta<typeof DetailTextField>;
 
+type Input = {
+  title: string;
+  content: string;
+};
+
+type Data = {
+  title: string;
+};
+
 const SignupSchema = yup.object().shape({
   content: yup
     .string()
@@ -21,15 +30,14 @@ const Template: ComponentStory<typeof DetailTextField> = () => {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm({
+  } = useForm<Input>({
     resolver: yupResolver(SignupSchema),
   });
 
-  const handleOnSubmit = (data: any) => console.log(data);
-  const handleOnError = (errors: any) => console.log(errors);
+  const handleOnSubmit = (data: Data) => console.log(data);
 
   return (
-    <form onSubmit={handleSubmit(handleOnSubmit, handleOnError)}>
+    <form onSubmit={handleSubmit(handleOnSubmit)}>
       <DetailTextField
         register={register("content")}
         placeholder={"記事本文を入力"}

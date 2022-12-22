@@ -2,7 +2,7 @@ import { css } from "@emotion/react";
 
 type Props = {
   placeholder: string;
-  register: any;
+  register: object;
   errorMessage?: string;
 };
 

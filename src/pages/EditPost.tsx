@@ -14,12 +14,12 @@ type Params = {
 type Input = {
   title: string;
   content: string;
-}
+};
 
 const EditPost = () => {
   const { postId } = useParams<Params>();
 
-  const onClickEdit = (values: any) => {
+  const onClickEdit = (values: Input) => {
     axios.put(`http://localhost:18080/v1/note/${postId}`, {
       title: values.title,
       content: values.content,

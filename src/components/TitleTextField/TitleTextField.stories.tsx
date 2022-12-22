@@ -12,7 +12,11 @@ export default {
 type Input = {
   title: string;
   content: string;
-}
+};
+
+type Data = {
+  title: string;
+};
 
 const SignupSchema = yup.object().shape({
   title: yup
@@ -30,12 +34,10 @@ const Template: ComponentStory<typeof TitleTextField> = () => {
     resolver: yupResolver(SignupSchema),
   });
 
-  const handleOnSubmit = (data: any) => console.log(data);
-  const handleOnError = (errors: any) => console.log(errors);
-  console.log(typeof errors.title?.message);
+  const handleOnSubmit = (data: Data) => console.log(data);
 
   return (
-    <form onSubmit={handleSubmit(handleOnSubmit, handleOnError)}>
+    <form onSubmit={handleSubmit(handleOnSubmit)}>
       <TitleTextField
         register={register("title")}
         placeholder={"記事タイトルを入力"}

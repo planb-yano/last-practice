@@ -3,8 +3,8 @@ import React from "react";
 
 type Props = {
   placeholder: string;
-  register: any;
-  errorMessage: any;
+  register: object;
+  errorMessage?: string;
 };
 
 const DetailTextField: React.FC<Props> = (props) => {

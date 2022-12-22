@@ -9,7 +9,7 @@ import axios from "axios";
 type Input = {
   title: string;
   content: string;
-}
+};
 
 const CreatePost = () => {
   const SignupSchema = yup.object().shape({
@@ -28,7 +28,7 @@ const CreatePost = () => {
     resolver: yupResolver(SignupSchema),
   });
 
-  const onClickAdd = (values: any) => {
+  const onClickAdd = (values: Input) => {
     axios
       .post("http://localhost:18080/v1/note", {
         title: values.title,
