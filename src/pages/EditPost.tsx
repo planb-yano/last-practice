@@ -9,13 +9,13 @@ import { useMutation, useQuery, useQueryClient } from "react-query";
 import { useState } from "react";
 import type { Post } from "../types/app";
 import type { Params } from "../types/app";
-import apiProject from "../apis/apiProject";
+import apiNote from "../apis/apiNote";
 import { css } from "@emotion/react";
 
 const EditPost = () => {
   const { postId } = useParams<Params>();
   const getPosts = () => {
-    const post = apiProject.itemGet
+    const post = apiNote.findByNote
       .get(postId)
       .then((response) => response.data);
     return post;
@@ -30,7 +30,7 @@ const EditPost = () => {
   const queryClient = useQueryClient();
 
   const updatePostMutation = useMutation(
-    (post: Post) => apiProject.itemPut.put(postId, post),
+    (post: Post) => apiNote.updateNote.put(postId, post),
     {
       onSuccess: () => {
         queryClient.invalidateQueries(["posts"]);

@@ -6,7 +6,7 @@ import DetailTextField from "../components/DetailTextField";
 import SquareButton from "../components/SquareButton";
 import { useMutation, useQueryClient } from "react-query";
 import type { Post } from "../types/app";
-import apiProject from "../apis/apiProject";
+import apiNote from "../apis/apiNote";
 import { css } from "@emotion/react";
 
 const CreatePost = () => {
@@ -29,7 +29,7 @@ const CreatePost = () => {
   const queryClient = useQueryClient();
 
   const createPostMutation = useMutation(
-    (post: Post) => apiProject.itemPost.post(post),
+    (post: Post) => apiNote.createNote.post(post),
     {
       onSuccess: () => {
         queryClient.invalidateQueries(["posts"]);

@@ -1,22 +1,11 @@
 import { css } from "@emotion/react";
-import { useQuery } from "react-query";
 import CircleButton from "../components/CircleButton";
 import TitleButton from "../components/TitleButton";
 import type { Post } from "../types/app";
-import apiProject from "../apis/apiProject";
-
-type Data = {
-  items: [];
-  total: number;
-};
+import usePosts from "../hooks/usePosts";
 
 const Home = () => {
-  const getPosts = () => {
-    const posts = apiProject.home.get().then((response) => response.data);
-    return posts;
-  };
-
-  const { data, isLoading } = useQuery<Data, Error>("posts", getPosts);
+  const { data, isLoading } = usePosts();
 
   if (isLoading) {
     return <span>Loading...</span>;

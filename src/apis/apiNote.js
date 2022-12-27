@@ -1,31 +1,31 @@
 import axios from "axios";
 
-const apiProject = {
-  home: {
+const apiNote = {
+  findAllNote: {
     get() {
       return axios.get("http://localhost:18080/v1/note");
     },
   },
-  itemGet: {
+  findByNote: {
     get(postId) {
       return axios.get(`http://localhost:18080/v1/note/${postId}`);
     },
   },
-  itemPost: {
+  createNote: {
     post(post) {
       return axios.post("http://localhost:18080/v1/note", post);
     },
   },
-  itemPut: {
+  updateNote: {
     put(postId, post) {
       return axios.put(`http://localhost:18080/v1/note/${postId}`, post);
     },
   },
-  itemDelete: {
+  deleteNote: {
     delete(postId) {
       return axios.delete(`http://localhost:18080/v1/note/${postId}`);
     },
   },
 };
 
-export default apiProject;
+export default apiNote;

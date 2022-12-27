@@ -12,28 +12,21 @@ import {
   ModalCloseButton,
 } from "@chakra-ui/react";
 import SquareButton from "../components/SquareButton";
-import { useMutation, useQuery, useQueryClient } from "react-query";
-import type { Post } from "../types/app";
+import { useMutation, useQueryClient } from "react-query";
 import type { Params } from "../types/app";
-import apiProject from "../apis/apiProject";
+import apiNote from "../apis/apiNote";
+import usePost from "../hooks/usePost";
 
 const PostDetail = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const { postId } = useParams<Params>();
-  const getPosts = () => {
-    const post = apiProject.itemGet
-      .get(postId)
-      .then((response) => response.data);
-    return post;
-  };
-  const { data, error } = useQuery<Post, Error>(["post", postId], getPosts, {
-    enabled: !!postId,
-  });
+
+  const { data, error } = usePost(postId);
 
   const queryClient = useQueryClient();
 
   const deletePostMutation = useMutation(
-    (id: string) => apiProject.itemDelete.delete(postId),
+    (id: string) => apiNote.deleteNote.delete(postId),
     {
       onSuccess: () => {
         queryClient.invalidateQueries(["post", postId]);
