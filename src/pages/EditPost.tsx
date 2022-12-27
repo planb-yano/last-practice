@@ -5,17 +5,17 @@ import * as yup from "yup";
 import DetailTextField from "../components/DetailTextField";
 import SquareButton from "../components/SquareButton";
 import { useParams } from "react-router-dom";
-import axios from "axios";
 import { useMutation, useQuery, useQueryClient } from "react-query";
 import { useState } from "react";
 import type { Post } from "../types/app";
 import type { Params } from "../types/app";
+import apiProject from "../apis/apiProject";
 
 const EditPost = () => {
   const { postId } = useParams<Params>();
   const getPosts = () => {
-    const post = axios
-      .get(`http://localhost:18080/v1/note/${postId}`)
+    const post = apiProject.itemGet
+      .get(postId)
       .then((response) => response.data);
     return post;
   };
@@ -29,8 +29,7 @@ const EditPost = () => {
   const queryClient = useQueryClient();
 
   const updatePostMutation = useMutation(
-    (post: Post) =>
-      axios.put<Post>(`http://localhost:18080/v1/note/${postId}`, post),
+    (post: Post) => apiProject.itemPut.put(postId, post),
     {
       onSuccess: () => {
         queryClient.invalidateQueries(["posts"]);

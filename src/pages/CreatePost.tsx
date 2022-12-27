@@ -4,9 +4,9 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import DetailTextField from "../components/DetailTextField";
 import SquareButton from "../components/SquareButton";
-import axios from "axios";
 import { useMutation, useQueryClient } from "react-query";
 import type { Post } from "../types/app";
+import apiProject from "../apis/apiProject";
 
 const CreatePost = () => {
   const SignupSchema = yup.object().shape({
@@ -28,7 +28,7 @@ const CreatePost = () => {
   const queryClient = useQueryClient();
 
   const createPostMutation = useMutation(
-    (post: Post) => axios.post<Post>("http://localhost:18080/v1/note", post),
+    (post: Post) => apiProject.itemPost.post(post),
     {
       onSuccess: () => {
         queryClient.invalidateQueries(["posts"]);

@@ -1,7 +1,6 @@
 import { css } from "@emotion/react";
 import Detail from "../components/Detail";
 import CircleButton from "../components/CircleButton";
-import axios from "axios";
 import { useParams } from "react-router-dom";
 import {
   useDisclosure,
@@ -16,13 +15,14 @@ import SquareButton from "../components/SquareButton";
 import { useMutation, useQuery, useQueryClient } from "react-query";
 import type { Post } from "../types/app";
 import type { Params } from "../types/app";
+import apiProject from "../apis/apiProject";
 
 const PostDetail = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const { postId } = useParams<Params>();
   const getPosts = () => {
-    const post = axios
-      .get(`http://localhost:18080/v1/note/${postId}`)
+    const post = apiProject.itemGet
+      .get(postId)
       .then((response) => response.data);
     return post;
   };
@@ -33,8 +33,7 @@ const PostDetail = () => {
   const queryClient = useQueryClient();
 
   const deletePostMutation = useMutation(
-    (id: string) =>
-      axios.delete<Post>(`http://localhost:18080/v1/note/${postId}`),
+    (id: string) => apiProject.itemDelete.delete(postId),
     {
       onSuccess: () => {
         queryClient.invalidateQueries(["post", postId]);

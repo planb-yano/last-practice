@@ -1,9 +1,9 @@
 import { css } from "@emotion/react";
-import axios from "axios";
 import { useQuery } from "react-query";
 import CircleButton from "../components/CircleButton";
 import TitleButton from "../components/TitleButton";
 import type { Post } from "../types/app";
+import apiProject from "../apis/apiProject";
 
 type Data = {
   items: [];
@@ -12,9 +12,7 @@ type Data = {
 
 const Home = () => {
   const getPosts = () => {
-    const posts = axios
-      .get("http://localhost:18080/v1/note")
-      .then((response) => response.data);
+    const posts = apiProject.home.get().then((response) => response.data);
     return posts;
   };
 
