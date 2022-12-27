@@ -50,16 +50,20 @@ const PostDetail = () => {
       {error && <p>Error</p>}
       {data && (
         <>
-          <Detail
-            title={data.title}
-            date={data.createdAt.split("T")[0]}
-            description={data.content}
-          ></Detail>
-          <CircleButton children="Delete" onClick={onOpen}></CircleButton>
-          <CircleButton
-            children="Edit"
-            href={`/post/${postId}/edit`}
-          ></CircleButton>
+          <div css={styles.detail}>
+            <Detail
+              title={data.title}
+              date={data.createdAt.split("T")[0]}
+              description={data.content}
+            ></Detail>
+          </div>
+          <div css={styles.button}>
+            <CircleButton children="Delete" onClick={onOpen}></CircleButton>
+            <CircleButton
+              children="Edit"
+              href={`/post/${postId}/edit`}
+            ></CircleButton>
+          </div>
 
           <Modal isOpen={isOpen} onClose={onClose}>
             <ModalOverlay />
@@ -84,7 +88,13 @@ const styles = {
     margin: 0 auto;
   `,
   detail: css`
-    margin-top: 300px;
+    margin-top: 50px;
+  `,
+  button: css`
+    margin-top: 60px;
+    display: flex;
+    gap: 20px;
+    justify-content: flex-end;
   `,
 };
 

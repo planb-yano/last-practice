@@ -11,7 +11,7 @@ const Detail: React.FC<Props> = ({ title, date, description }) => {
     <div>
       <h1 css={styles.title}>{title}</h1>
       <p css={styles.date}>{date}</p>
-      <p css={styles.description}>{description}</p>
+      <p>{description}</p>
     </div>
   );
 };
@@ -22,9 +22,7 @@ const styles = {
   `,
   date: css`
     text-align: right;
-  `,
-  description: css`
-    margin-top: 20px;
+    margin: 20px 0 50px;
   `,
 };
 
