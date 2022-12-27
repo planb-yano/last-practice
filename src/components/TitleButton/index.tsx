@@ -20,7 +20,7 @@ const styles = {
   base: css`
     display: flex;
     justify-content: space-between;
-    background-color: yellow;
+    background-color: #fee9d6;
     border-radius: 10px;
     padding: 35px;
     text-decoration: none;

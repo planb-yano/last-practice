@@ -29,7 +29,7 @@ const styles = {
     width: 100px;
     height: 100px;
     border-radius: 50%;
-    background-color: skyblue;
+    background-color: #fe8c25;
     text-align: center;
     line-height: 100px;
     font-size: 20px;

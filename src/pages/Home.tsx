@@ -43,7 +43,7 @@ const Home = () => {
 
 const styles = {
   base: css`
-    width: 70%;
+    width: 60%;
     margin: 0 auto;
   `,
   list: css`
@@ -55,6 +55,7 @@ const styles = {
   `,
   button: css`
     text-align: right;
+    margin-bottom: 20px;
   `,
 };
 
