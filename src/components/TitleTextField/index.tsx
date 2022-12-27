@@ -4,6 +4,7 @@ type Props = {
   placeholder: string;
   register: object;
   errorMessage?: string;
+  defaultValue?: string;
 };
 
 const TitleTextField: React.FC<Props> = (props) => {
@@ -14,6 +15,7 @@ const TitleTextField: React.FC<Props> = (props) => {
         type="text"
         placeholder={props.placeholder}
         {...props.register}
+        defaultValue={props.defaultValue}
       ></input>
       <p css={styles.message}>{props.errorMessage}</p>
     </div>

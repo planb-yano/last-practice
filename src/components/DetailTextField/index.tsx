@@ -5,6 +5,7 @@ type Props = {
   placeholder: string;
   register: object;
   errorMessage?: string;
+  defaultValue?: string;
 };
 
 const DetailTextField: React.FC<Props> = (props) => {
@@ -14,6 +15,7 @@ const DetailTextField: React.FC<Props> = (props) => {
         css={styles.base}
         placeholder={props.placeholder}
         {...props.register}
+        defaultValue={props.defaultValue}
       ></textarea>
       <p css={styles.message}>{props.errorMessage}</p>
     </div>
