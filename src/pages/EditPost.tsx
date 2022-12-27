@@ -10,6 +10,7 @@ import { useState } from "react";
 import type { Post } from "../types/app";
 import type { Params } from "../types/app";
 import apiProject from "../apis/apiProject";
+import { css } from "@emotion/react";
 
 const EditPost = () => {
   const { postId } = useParams<Params>();
@@ -60,21 +61,41 @@ const EditPost = () => {
 
   return (
     <div>
-      <TitleTextField
-        placeholder="記事タイトルを入力"
-        register={register("title")}
-        errorMessage={errors.title?.message}
-        defaultValue={post?.title}
-      />
-      <DetailTextField
-        placeholder="記事本文を入力"
-        register={register("content")}
-        errorMessage={errors.content?.message}
-        defaultValue={post?.content}
-      />
-      <SquareButton children="Edit" onClick={handleSubmit(onClickEdit)} />
+      <div css={styles.title}>
+        <TitleTextField
+          placeholder="記事タイトルを入力"
+          register={register("title")}
+          errorMessage={errors.title?.message}
+          defaultValue={post?.title}
+        />
+      </div>
+      <div css={styles.detail}>
+        <DetailTextField
+          placeholder="記事本文を入力"
+          register={register("content")}
+          errorMessage={errors.content?.message}
+          defaultValue={post?.content}
+        />
+      </div>
+      <div css={styles.button}>
+        <SquareButton children="Edit" onClick={handleSubmit(onClickEdit)} />
+      </div>
     </div>
   );
+};
+
+const styles = {
+  title: css`
+    text-align: center;
+    margin: 50px 0 30px;
+  `,
+  detail: css`
+    text-align: center;
+  `,
+  button: css`
+    text-align: center;
+    margin-top: 50px;
+  `,
 };
 
 export default EditPost;
