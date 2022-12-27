@@ -8,18 +8,8 @@ import { useParams } from "react-router-dom";
 import axios from "axios";
 import { useMutation, useQuery, useQueryClient } from "react-query";
 import { useState } from "react";
-
-type Params = {
-  postId: string;
-};
-
-type Post = {
-  id: string;
-  title: string;
-  content: string;
-  createdAt: string;
-  updatedAt: string;
-};
+import type { Post } from "../types/app";
+import type { Params } from "../types/app";
 
 const EditPost = () => {
   const { postId } = useParams<Params>();

@@ -6,14 +6,7 @@ import DetailTextField from "../components/DetailTextField";
 import SquareButton from "../components/SquareButton";
 import axios from "axios";
 import { useMutation, useQueryClient } from "react-query";
-
-type Post = {
-  id: string;
-  title: string;
-  content: string;
-  createdAt: string;
-  updatedAt: string;
-};
+import type { Post } from "../types/app";
 
 const CreatePost = () => {
   const SignupSchema = yup.object().shape({
@@ -37,14 +30,8 @@ const CreatePost = () => {
   const createPostMutation = useMutation(
     (post: Post) => axios.post<Post>("http://localhost:18080/v1/note", post),
     {
-      onSuccess: (res) => {
-        const previousPosts = queryClient.getQueryData<Post[]>("posts");
-        if (previousPosts) {
-          queryClient.setQueryData<Post[]>("posts", [
-            ...previousPosts,
-            res.data,
-          ]);
-        }
+      onSuccess: () => {
+        queryClient.invalidateQueries(["posts"]);
       },
     }
   );

@@ -3,14 +3,7 @@ import axios from "axios";
 import { useQuery } from "react-query";
 import CircleButton from "../components/CircleButton";
 import TitleButton from "../components/TitleButton";
-
-type Post = {
-  id: string;
-  title: string;
-  content: string;
-  createdAt: string;
-  updatedAt: string;
-};
+import type { Post } from "../types/app";
 
 type Data = {
   items: [];

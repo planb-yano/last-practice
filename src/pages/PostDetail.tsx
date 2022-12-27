@@ -14,18 +14,8 @@ import {
 } from "@chakra-ui/react";
 import SquareButton from "../components/SquareButton";
 import { useMutation, useQuery, useQueryClient } from "react-query";
-
-type Params = {
-  postId: string;
-};
-
-type Post = {
-  id: string;
-  title: string;
-  content: string;
-  createdAt: string;
-  updatedAt: string;
-};
+import type { Post } from "../types/app";
+import type { Params } from "../types/app";
 
 const PostDetail = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
