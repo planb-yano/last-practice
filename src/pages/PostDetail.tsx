@@ -36,7 +36,9 @@ const PostDetail = () => {
       .then((response) => response.data);
     return post;
   };
-  const { data } = useQuery<Post, Error>("post", getPosts);
+  const { data, error } = useQuery<Post, Error>(["post", postId], getPosts, {
+    enabled: !!postId,
+  });
 
   const queryClient = useQueryClient();
 
@@ -44,14 +46,8 @@ const PostDetail = () => {
     (id: string) =>
       axios.delete<Post>(`http://localhost:18080/v1/note/${postId}`),
     {
-      onSuccess: (res, variables) => {
-        const previousPosts = queryClient.getQueryData<Post[]>("posts");
-        if (previousPosts) {
-          queryClient.setQueryData<Post[]>(
-            "posts",
-            previousPosts.filter((post) => post.id === variables)
-          );
-        }
+      onSuccess: () => {
+        queryClient.invalidateQueries(["post", postId]);
       },
     }
   );
@@ -62,30 +58,33 @@ const PostDetail = () => {
   };
   return (
     <div css={styles.base}>
+      {error && <p>Error</p>}
       {data && (
-        <Detail
-          title={data.title}
-          date={data.createdAt.split("T")[0]}
-          description={data.content}
-        ></Detail>
+        <>
+          <Detail
+            title={data.title}
+            date={data.createdAt.split("T")[0]}
+            description={data.content}
+          ></Detail>
+          <CircleButton children="Delete" onClick={onOpen}></CircleButton>
+          <CircleButton
+            children="Edit"
+            href={`/post/${postId}/edit`}
+          ></CircleButton>
+
+          <Modal isOpen={isOpen} onClose={onClose}>
+            <ModalOverlay />
+            <ModalContent>
+              <ModalHeader>本当に削除しますか？</ModalHeader>
+              <ModalCloseButton />
+
+              <ModalFooter>
+                <SquareButton onClick={onClickDelete}>削除</SquareButton>
+              </ModalFooter>
+            </ModalContent>
+          </Modal>
+        </>
       )}
-      <CircleButton children="Delete" onClick={onOpen}></CircleButton>
-      <CircleButton
-        children="Edit"
-        href={`/post/${postId}/edit`}
-      ></CircleButton>
-
-      <Modal isOpen={isOpen} onClose={onClose}>
-        <ModalOverlay />
-        <ModalContent>
-          <ModalHeader>本当に削除しますか？</ModalHeader>
-          <ModalCloseButton />
-
-          <ModalFooter>
-            <SquareButton onClick={onClickDelete}>削除</SquareButton>
-          </ModalFooter>
-        </ModalContent>
-      </Modal>
     </div>
   );
 };

@@ -32,7 +32,7 @@ const EditPost = () => {
 
   const [post, setPost] = useState<Post>();
 
-  const { isLoading } = useQuery<Post, Error>("posts", getPosts, {
+  const { isLoading } = useQuery<Post, Error>("post", getPosts, {
     onSuccess: (data) => setPost(data),
   });
 
@@ -42,16 +42,9 @@ const EditPost = () => {
     (post: Post) =>
       axios.put<Post>(`http://localhost:18080/v1/note/${postId}`, post),
     {
-      onSuccess: (res, variables) => {
-        const previousPosts = queryClient.getQueryData<Post[]>("posts");
-        if (previousPosts) {
-          queryClient.setQueryData<Post[]>(
-            "posts",
-            previousPosts.map((post) =>
-              post.id === variables.id ? res.data : post
-            )
-          );
-        }
+      onSuccess: () => {
+        queryClient.invalidateQueries(["posts"]);
+        queryClient.invalidateQueries(["post", postId]);
       },
     }
   );
