@@ -1,6 +1,6 @@
 import { css } from "@emotion/react";
-import Detail from "../components/Detail";
-import CircleButton from "../components/CircleButton";
+import Detail from "@/components/Detail";
+import CircleButton from "@/components/CircleButton";
 import { useParams } from "react-router-dom";
 import {
   useDisclosure,
@@ -11,11 +11,11 @@ import {
   ModalFooter,
   ModalCloseButton,
 } from "@chakra-ui/react";
-import SquareButton from "../components/SquareButton";
+import SquareButton from "@/components/SquareButton";
 import { useMutation, useQueryClient } from "react-query";
-import type { Params } from "../types/app";
-import apiNote from "../apis/apiNote";
-import usePost from "../hooks/usePost";
+import type { Params } from "@/types/app";
+import apiNote from "@/apis/apiNote";
+import usePost from "@/hooks/usePost";
 
 const PostDetail = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();

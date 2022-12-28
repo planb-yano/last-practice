@@ -1,12 +1,12 @@
-import TitleTextField from "../components/TitleTextField";
+import TitleTextField from "@/components/TitleTextField";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
-import DetailTextField from "../components/DetailTextField";
-import SquareButton from "../components/SquareButton";
+import DetailTextField from "@/components/DetailTextField";
+import SquareButton from "@/components/SquareButton";
 import { useMutation, useQueryClient } from "react-query";
-import type { Post } from "../types/app";
-import apiNote from "../apis/apiNote";
+import type { Post } from "@/types/app";
+import apiNote from "@/apis/apiNote";
 import { css } from "@emotion/react";
 
 const CreatePost = () => {

@@ -1,8 +1,8 @@
 import { css } from "@emotion/react";
-import CircleButton from "../components/CircleButton";
-import TitleButton from "../components/TitleButton";
-import type { Post } from "../types/app";
-import usePosts from "../hooks/usePosts";
+import CircleButton from "@/components/CircleButton";
+import TitleButton from "@/components/TitleButton";
+import type { Post } from "@/types/app";
+import usePosts from "@/hooks/usePosts";
 
 const Home = () => {
   const { data, isLoading } = usePosts();

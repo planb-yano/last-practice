@@ -1,5 +1,5 @@
 import { useQuery } from "react-query";
-import apiNote from "../apis/apiNote";
+import apiNote from "@/apis/apiNote";
 
 type Data = {
   items: [];
