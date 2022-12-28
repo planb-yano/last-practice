@@ -1,6 +1,6 @@
 import { ComponentStory, ComponentMeta } from "@storybook/react";
 import { MemoryRouter } from "react-router-dom";
-import TitleButton from "./index";
+import TitleButton from ".";
 
 export default {
   title: "src/components/TitleButton",

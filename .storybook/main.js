@@ -5,7 +5,7 @@ module.exports = {
     "@storybook/addon-essentials",
     "@storybook/addon-interactions",
     "@storybook/preset-create-react-app",
-    '@chakra-ui/storybook-addon',
+    "@chakra-ui/storybook-addon",
   ],
   features: {
     emotionAlias: false,
@@ -17,10 +17,13 @@ module.exports = {
   webpackFinal: (config) => {
     config.module.rules.push({
       test: /\.(ts|tsx)$/,
-      loader: require.resolve('babel-loader'),
+      loader: require.resolve("babel-loader"),
       options: {
         cacheDirectory: true,
-        presets: [['react-app', {flow: false, typescript: true}] ,require.resolve('@emotion/babel-preset-css-prop')],
+        presets: [
+          ["react-app", { flow: false, typescript: true }],
+          require.resolve("@emotion/babel-preset-css-prop"),
+        ],
       },
     });
     return config;

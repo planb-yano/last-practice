@@ -1,5 +1,5 @@
 import { ComponentStory, ComponentMeta } from "@storybook/react";
-import Detail from "./index";
+import Detail from ".";
 
 export default {
   title: "src/components/Detail",

@@ -1,6 +1,6 @@
 import { ComponentStory, ComponentMeta } from "@storybook/react";
 import { MemoryRouter } from "react-router-dom";
-import CircleButton from "./index";
+import CircleButton from ".";
 
 export default {
   title: "src/components/CircleButton",

@@ -1,6 +1,6 @@
 import { ComponentStory, ComponentMeta } from "@storybook/react";
 import { MemoryRouter } from "react-router-dom";
-import SquareButton from "./index";
+import SquareButton from ".";
 
 export default {
   title: "src/components/SquareButton",
